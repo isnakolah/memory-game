@@ -84,7 +84,7 @@ const checkCards = () => {
 const checkIfPlayerHasWon = () => {
   if (document.querySelectorAll(".cardMatched").length === 2) {
     setTimeout(() => {
-      window.alert("You won!");
+      alert("You won!");
       setButton("PLAY AGAIN", restartGame);
     }, 1000);
   }
@@ -126,7 +126,7 @@ const restartGame = (message) => {
   });
 
   if (message) {
-    setTimeout(() => window.alert(message), 500);
+    setTimeout(() => alert(message), 500);
   }
 
   // Set button to peek
