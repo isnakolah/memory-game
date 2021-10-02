@@ -97,7 +97,7 @@ const checkIfPlayerHasWon = () => {
 
 const checkIfPlayerHasLost = () => {
   setTimeout(
-    () => player.lives > 4 && livesCounter.classList.add("lowLives"),
+    () => player.lives < 4 && livesCounter.classList.add("lowLives"),
     1000
   );
   if (player.hasNoMoreLives()) {
