@@ -3,13 +3,18 @@ const section = document.querySelector("section");
 const livesCounter = document.querySelector(".playerLives");
 const scoreCounter = document.querySelector(".playerScore");
 const highScoreCounter = document.querySelector(".playerHighScore");
-const button = document.querySelector("button");
+const peekButton = document.querySelector("#peek");
+const endGameButton = document.querySelector("#endGame");
+const restartGameButton = document.querySelector("#restartGame");
 
 const player = new Player(livesCounter, scoreCounter, highScoreCounter);
 
 // Starting the game
 const startGame = () => {
-  setButtonPeek();
+  peekButton.addEventListener("click", peekCards);
+  endGameButton.addEventListener("click", endGame);
+  restartGameButton.addEventListener("click", restartGame);
+  togglePeekButton();
   cardGenerator();
 };
 
@@ -85,7 +90,7 @@ const checkIfPlayerHasWon = () => {
   if (document.querySelectorAll(".cardMatched").length === getData().length) {
     setTimeout(() => {
       alert("You won!");
-      setButton("PLAY AGAIN", restartGame);
+      restartGame();
     }, 1000);
   }
 };
@@ -93,8 +98,7 @@ const checkIfPlayerHasWon = () => {
 const checkIfPlayerHasLost = () => {
   if (player.hasNoMoreLives()) {
     setTimeout(() => {
-      player.reset();
-      restartGame("You lost");
+      restartGame();
     }, 1000);
   }
 };
@@ -106,16 +110,27 @@ const cardsMatch = (flippedCards) => {
   return firstCardName === secondCardName;
 };
 
+const endGame = () => {
+  if (
+    confirm(
+      "Are you sure you want to end the game?\nAll progress will be lost."
+    )
+  ) {
+    restartGame();
+    return;
+  }
+  return;
+};
+
 // restart game
-const restartGame = (message) => {
+const restartGame = () => {
   const data = randomizedData();
   const cards = document.querySelectorAll(".card");
 
   toggleClicking(() => {
     // randomize the data in the rendered cards
     cards.forEach((card, index) => {
-      card.classList.remove("cardMatched");
-      card.classList.remove("peek");
+      card.classList = "card";
 
       setTimeout(() => {
         card.style.pointerEvents = "all";
@@ -125,12 +140,12 @@ const restartGame = (message) => {
     });
   });
 
-  if (message) {
-    setTimeout(() => alert(message), 500);
-  }
+  // reset player
+  player.reset();
 
   // Set button to peek
-  setButtonPeek();
+  togglePeekButton();
+  toggleEndGameButton();
 };
 
 const peekCards = () => {
@@ -141,18 +156,23 @@ const peekCards = () => {
       card.classList.add("peek");
       setTimeout(() => card.classList.remove("peek"), 2000);
     });
-    button.style.display = "none";
+    togglePeekButton();
+    toggleEndGameButton();
   }, 2000);
 };
 
-const setButtonPeek = () => {
-  setButton("PEEK", peekCards);
-};
+const toggleEndGameButton = () => toggleButtonView(endGameButton);
 
-const setButton = (text, eventListener) => {
-  button.textContent = text;
-  button.addEventListener("click", () => eventListener());
-  button.style.display = "block";
+const togglePeekButton = () => toggleButtonView(peekButton);
+
+const toggleRestartButton = () => toggleButtonView(restartGameButton);
+
+const toggleButtonView = (buttonToToggle) => {
+  if (buttonToToggle.style.display === "none") {
+    buttonToToggle.style.display = "block";
+    return;
+  }
+  buttonToToggle.style.display = "none";
 };
 
 startGame();
