@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +11,7 @@ body {
   background: #74ebd5;
   background: --webkit-linear-gradient(to right, #acb6e5, #74ebd5);
   background: linear-gradient(to right, #acb6e5, #74ebd5);
+  font-family: "Poppins", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,6 +25,19 @@ section {
   grid-template-rows: repeat(4, 8rem);
   grid-gap: 2rem;
   perspective: 800px;
+}
+
+button {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  border: solid blue 2px;
+  color: white;
+  background-color: transparent;
+  border-radius: 3px;
+  background: #027ad6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
 }
 
 .card {
@@ -59,20 +75,19 @@ section {
   padding-bottom: 0.5rem;
 }
 
-.scores > h1 {
+.scores > h2 {
   padding-right: 1rem;
   padding-left: 1rem;
 }
 
-button {
+.scores > h2 > span {
+  border: 2px solid rgb(5, 101, 111);
+  background-color: #027ad6;
+  color: rgb(156, 236, 245);
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-  border: solid blue 2px;
-  color: white;
-  background-color: transparent;
-  border-radius: 3px;
-  background: #027ad6;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
-    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
-    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+}
+
+.lowLives {
+  background-color: rgb(245, 65, 65) !important;
 }
