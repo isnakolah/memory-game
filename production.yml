@@ -4,7 +4,7 @@ name: Development Workflow
 on:
   push:
     branches:
-      - development
+      - master
 
 # Jobs to carry out
 jobs:
