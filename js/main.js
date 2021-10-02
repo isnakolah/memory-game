@@ -96,6 +96,10 @@ const checkIfPlayerHasWon = () => {
 };
 
 const checkIfPlayerHasLost = () => {
+  setTimeout(
+    () => player.lives > 4 && livesCounter.classList.add("lowLives"),
+    1000
+  );
   if (player.hasNoMoreLives()) {
     setTimeout(() => {
       restartGame();
@@ -126,6 +130,8 @@ const endGame = () => {
 const restartGame = () => {
   const data = randomizedData();
   const cards = document.querySelectorAll(".card");
+
+  livesCounter.classList.remove("lowLives");
 
   toggleClicking(() => {
     // randomize the data in the rendered cards
