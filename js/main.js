@@ -82,7 +82,7 @@ const checkCards = () => {
 };
 
 const checkIfPlayerHasWon = () => {
-  if (document.querySelectorAll(".cardMatched").length === 2) {
+  if (document.querySelectorAll(".cardMatched").length === getData().length) {
     setTimeout(() => {
       alert("You won!");
       setButton("PLAY AGAIN", restartGame);
