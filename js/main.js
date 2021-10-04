@@ -175,10 +175,7 @@ const togglePeekButton = () => toggleButtonView(peekButton);
 
 const toggleRestartButton = () => toggleButtonView(restartGameButton);
 
-const toggleButtonView = (buttonToToggle) => {
-  if (buttonToToggle.style.display === "none") {
-    buttonToToggle.style.display = "block";
-    return;
-  }
-  buttonToToggle.style.display = "none";
-};
+const toggleButtonView = (buttonToToggle) =>
+  buttonToToggle.style.display === "none"
+    ? (buttonToToggle.style.display = "block")
+    : (buttonToToggle.style.display = "none");
