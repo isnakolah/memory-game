@@ -1,22 +1,24 @@
 // Grab a couple of things
 const section = document.querySelector("section");
-const livesCounter = document.querySelector(".playerLives");
-const scoreCounter = document.querySelector(".playerScore");
-const highScoreCounter = document.querySelector(".playerHighScore");
 const peekButton = document.querySelector("#peek");
 const endGameButton = document.querySelector("#endGame");
 const restartGameButton = document.querySelector("#restartGame");
 
-const player = new Player(livesCounter, scoreCounter, highScoreCounter);
+document.addEventListener("DOMContentLoaded", () => {
+  // Get DOM elements
+  const livesCounter = document.querySelector(".playerLives");
+  const scoreCounter = document.querySelector(".playerScore");
+  const highScoreCounter = document.querySelector(".playerHighScore");
 
-// Starting the game
-const startGame = () => {
   peekButton.addEventListener("click", peekCards);
   endGameButton.addEventListener("click", endGame);
   restartGameButton.addEventListener("click", restartGame);
   togglePeekButton();
-  cardGenerator();
-};
+
+  // Generate the cards
+  const player = new Player(livesCounter, scoreCounter, highScoreCounter);
+  cardGenerator(player);
+});
 
 // Wrapper function to handle disable/enable clicking
 const toggleClicking = (func, timeout) => {
@@ -26,7 +28,7 @@ const toggleClicking = (func, timeout) => {
 };
 
 // Card generator function
-const cardGenerator = () => {
+const cardGenerator = (player) => {
   const data = randomizedData();
 
   // Generate the html
@@ -52,13 +54,13 @@ const cardGenerator = () => {
     // On click toggle card
     card.addEventListener("click", () => {
       card.classList.toggle("flipCard");
-      checkCards();
+      checkCards(player);
     });
   });
 };
 
 // Check cards
-const checkCards = () => {
+const checkCards = (player) => {
   const flippedCards = document.querySelectorAll(".flipCard");
 
   if (flippedCards.length === 2) {
@@ -71,7 +73,7 @@ const checkCards = () => {
           card.style.pointerEvents = "none";
         });
         player.incrementScore();
-        checkIfPlayerHasWon();
+        checkIfPlayerHasWon(player);
       } else {
         // Unflip the cards after a second
         flippedCards.forEach((card) => {
@@ -79,30 +81,30 @@ const checkCards = () => {
         });
         // Animate decrement of lives
         setTimeout(() => player.reduceLives(), 500);
-        checkIfPlayerHasLost();
+        checkIfPlayerHasLost(player);
       }
     });
   }
   clearTimeout();
 };
 
-const checkIfPlayerHasWon = () => {
+const checkIfPlayerHasWon = (player) => {
   if (document.querySelectorAll(".cardMatched").length === getData().length) {
     setTimeout(() => {
       alert("You won!");
-      restartGame();
+      restartGame(player);
     }, 1000);
   }
 };
 
-const checkIfPlayerHasLost = () => {
+const checkIfPlayerHasLost = (player) => {
   setTimeout(
     () => player.lives < 4 && livesCounter.classList.add("lowLives"),
     1000
   );
   if (player.hasNoMoreLives()) {
     setTimeout(() => {
-      restartGame();
+      restartGame(player);
     }, 1000);
   }
 };
@@ -127,7 +129,7 @@ const endGame = () => {
 };
 
 // restart game
-const restartGame = () => {
+const restartGame = (player) => {
   const data = randomizedData();
   const cards = document.querySelectorAll(".card");
 
@@ -180,5 +182,3 @@ const toggleButtonView = (buttonToToggle) => {
   }
   buttonToToggle.style.display = "none";
 };
-
-startGame();
