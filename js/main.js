@@ -139,7 +139,6 @@ const restartGame = (player) => {
     // randomize the data in the rendered cards
     cards.forEach((card, index) => {
       card.classList = "card";
-
       setTimeout(() => {
         card.style.pointerEvents = "all";
         card.firstChild.src = data[index].imgSrc;
